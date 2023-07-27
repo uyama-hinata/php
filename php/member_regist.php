@@ -14,9 +14,19 @@
 		            <p>氏名
 			        <span>性</span>
 			        <input type="text" name="family-name" required maxlength="20">
+					<?php
+                     if(empty($_POST['family_name'])){
+                     echo "氏名（性）は必須入力です。";
+                     }
+                    ?>
 				    <span>名</span>
 			        <input type="text" name="first-name" required maxlength="20"> 
-					</p>	
+					</p>
+					<?php
+                     if(empty($_POST['first_name'])){
+                     echo "氏名（名）は必須入力です。";
+                     }
+                    ?>
                 </div>
 
 				<div class="form-item">性別
@@ -58,11 +68,11 @@
 			        <input type="text" name="email" required maxlength="200">
 					<?php 
 					$email=$_POST['email'];
-					if(filter_var){
-
+					if(filter_var($email,FILTER_VALIDATE_EMAIL )){
+						echo"$_POST['email']";
+					}else{
+						echo"";
 					}
-					
-					
 					?>
 				</div>
 
