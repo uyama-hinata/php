@@ -15,20 +15,22 @@
     padding: 20px 0 10px 0;
 }
 
-.btn {
+.btn_next{
     border-radius:10px;
     margin-bottom:20px;
     border: none;
     padding:5px 30px;
 
-}
-
-.next{
     background-color: cornflowerblue;
     color: aliceblue;
 }
 
-.back{ 
+.btn_back{ 
+    border-radius:10px;
+    margin-bottom:20px;
+    border: none;
+    padding:5px 30px;
+
     background-color: aliceblue;
     color: cornflowerblue;
 }
@@ -40,6 +42,15 @@
     padding:200px 0px;
     text-align:center;
     border:2px solid #333;
+}
+
+li{
+    list-style:none;
+    color:red;
+}
+
+.error{
+    color:red;font-size:0.8px;
 }
 
 
