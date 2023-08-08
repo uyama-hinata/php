@@ -8,7 +8,7 @@ if(isset($_SESSION['error'])){
 	// die();
 } 
 
-// 次画面へ
+// エラーない時は次画面へ
 if(!empty($_POST) && !isset($_SESSION['error'])){
 	 header('Location:sent.php');
 	 exit();

@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-if (!empty($_POST)){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['form_data'] = $_POST; 
+
     // 氏名(性)
     if ($_POST['family-name']=="") {
         $error['family-name'][] = 'blank';
@@ -69,32 +71,20 @@ if (!empty($_POST)){
     }
 
 
+    $_SESSION['family-name']=$_POST['family-name'];
+    $_SESSION['first-name']=$_POST['first-name'];
+    $_SESSION['gender']=$_POST['gender'];
+    $_SESSION['prefecture']=$_POST['prefecture'];
+    $_SESSION['address']=$_POST['address'];
+    $_SESSION['password1']=$_POST['password1'];
+    $_SESSION['password2']=$_POST['password2'];
+    $_SESSION['email']=$_POST['email'];
+
 	if (!empty($error)) {
-        // var_dump($error);
         $_SESSION['error']= $error;
-        $_SESSION['family-name']=$_POST['family-name'];
-        $_SESSION['first-name']=$_POST['first-name'];
-        $_SESSION['gender']=$_POST['gender'];
-        $_SESSION['prefecture']=$_POST['prefecture'];
-        $_SESSION['address']=$_POST['address'];
-        $_SESSION['password1']=$_POST['password1'];
-        $_SESSION['password2']=$_POST['password2'];
-        $_SESSION['email']=$_POST['email'];
-        // var_dump($_SESSION);
-        // die();
         header('Location: member_regist.php');
         exit();
 	}
-
-
-    // history.backで値を引き継げるように
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $_SESSION['form_data'] = $_POST; 
-    }
-    // フォームのデータを取得
-    $form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : array();
-    // セッションのフォームデータを削除（必要に応じて）
-    unset($_SESSION['form_data']);
 
 }
 ?>
@@ -144,7 +134,7 @@ if (!empty($_POST)){
                 
             </form>
             
-            <input type="button" class="btn_back" value="前へ戻る" onclick=history.back()>
+            <input type="submit" class="btn_back" value="前へ戻る" onclick=history.back()>
 
         </div>
     </body>
