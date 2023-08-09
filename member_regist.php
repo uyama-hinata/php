@@ -13,6 +13,7 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 	 header('Location:sent.php');
 	 exit();
 }
+
 ?>
 
 
@@ -65,6 +66,9 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 					<?php if (isset($error['gender'])&& in_array("blank", $error['gender'])):?>
 					<p class="error">性別は必須です。</p>
 					<?php endif;?>
+					<?php if (isset($error['gender'])&& in_array("correct", $error['gender'])):?>
+					<p class="error">性別は 男性 か 女性 で入力してください。</p>
+					<?php endif;?>
 
                 </div>
 
@@ -81,7 +85,8 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 						 foreach($towns as $town){
 							if(!empty($error) && ($town===$_SESSION['prefecture'])){echo "<option value='{$_SESSION['prefecture']}' selected>{$town}</option>";}
 						  else{echo "<option value='{$town}'>{$town}</option>";}
-						 }	
+						 }
+					
 						?>
                     </select>
 					</p>
@@ -89,6 +94,9 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 					<!--住所エラー文表示  -->
 					<?php if (isset($error['prefecture'])&& in_array("blank", $error['prefecture'])):?>
 					<p class="error">住所は必須です。</p>
+					<?php endif;?>
+					<?php if (isset($error['prefecture'])&& in_array("correct", $error['prefecture'])):?>
+					<p class="error">住所は正しく選択してください。</p>
 					<?php endif;?>
 
 				</div>
@@ -112,6 +120,9 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 					<?php endif;?>
 					<?php if (isset($error['password1'])&& in_array("length", $error['password1'])):?>
 					<p class="error">パスワードは8~20文字以内でお願いします。</p>
+					<?php endif;?>
+					<?php if (isset($error['password1'])&& in_array("correct", $error['password1'])):?>
+					<p class="error">パスワードは半角英数字で入力してください。</p>
 					<?php endif;?>
 
 				</div>
