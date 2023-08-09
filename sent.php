@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	elseif (mb_strlen($_POST['password1'])<8 || mb_strlen($_POST['password1']) > 20) {
         $error['password1'][] = 'length';
     }
-    elseif(!preg_match("/^[a-zA-Z0-9]+$/",$_POST['password1'])){
+    elseif(!preg_match("/^[a-z0-9]+$/",$_POST['password1'])){
         $error['password1'][]='correct';
     }
     
