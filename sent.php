@@ -1,9 +1,9 @@
 <?php
+require("./dbconnect.php");
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $_SESSION['form_data'] = $_POST; 
-
+   
     // 氏名(性)
     if ($_POST['family-name']=="") {
         $error['family-name'][] = 'blank';
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['gender']=="") {
         $error['gender'][] = 'blank';
     }
-    elseif($_POST['gender']!=="男性" && $_POST['gender']!=="女性"){
+    elseif($_POST['gender']!=="1" && $_POST['gender']!=="2"){
         $error['gender'][]='correct';
     }
 
@@ -64,23 +64,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 	// メールアドレス
+    // 登録済みメールアドレスではないか
+	$member = $db->prepare('SELECT COUNT(*) AS cnt FROM members WHERE email=?');
+	$member->execute(array($_POST['email']));
+	$record = $member->fetch();
+
     if (empty($_POST['email'])) {
         $error['email'][] = 'blank';
-    // } else {
-	    // 登録済みメールアドレスではないか
-		// $member = $db->prepare('SELECT COUNT(*) AS cnt FROM members WHERE email=?');
-		// $member->execute(array($_POST['email']));
-		// $record = $member->fetch();
-		// if ($record['cnt'] > 0) {
-			// $error['email'] = 'duplicate';
-	    // }
-	}
+    } 
 	elseif (mb_strlen($_POST['email']) > 200) {
         $error['email'] []= 'length';
     }
     elseif (!preg_match( '/^[0-9a-z_.\/?-]+@([0-9a-z-]+\.)+[0-9a-z-]+$/', $_POST['email']) ) {
         $error['email'] []= 'correct';
     }
+    elseif ($record['cnt'] > 0) {
+		$error['email'] []= 'duplicate';
+	}
 
 
     $_SESSION['family-name']=$_POST['family-name'];
@@ -97,11 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: member_regist.php');
         exit();
 	}
-
 }
+
+$token = bin2hex(random_bytes(32));
+$_SESSION['token'] = $token;
+
 ?>
-
-
 
 
 <!DOCTYPE>
@@ -123,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  </div>
 
                  <div class="form-item">性別
-                 <?php echo $_POST['gender'];?>
+                 <?php if($_POST['gender']==="1"){echo "男性";}elseif($_POST['gender']==="2"){echo "女性";};?>
                  </div>
 
                  <div class="form-item">住所
@@ -140,6 +141,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  </div>
 
                 </div>
+
+                 <!-- 隠しフィールドでデータを持ち越す -->
+                 <input type="hidden" name="family-name" value="<?php echo $_POST['family-name'];?>">
+                 <input type="hidden" name="first-name" value="<?php echo $_POST['first-name'];?>">
+                 <input type="hidden" name="gender" value="<?php echo $_POST['gender'];?>">
+                 <input type="hidden" name="prefecture" value="<?php echo $_POST['prefecture'];?>">
+                 <input type="hidden" name="address" value="<?php echo $_POST['address'];?>">
+                 <input type="hidden" name="password1" value="<?php echo $_POST['password1'];?>">
+                 <input type="hidden" name="email" value="<?php echo $_POST['email'];?>">
+                 <input type="hidden" name="token" value="<?php echo $token; ?>">
                 
 
                 <input type="submit" class="btn_next" value="登録完了">
