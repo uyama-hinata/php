@@ -1,4 +1,5 @@
 <?php
+require("./dbconnect.php");
 session_start();
 // var_dump($_SESSION);
 
@@ -9,7 +10,7 @@ if(isset($_SESSION['error'])){
 } 
 
 // エラーない時は次画面へ
-if(!empty($_POST) && !isset($_SESSION['error'])){
+if(!empty($_POST) && !isset($_SESSION['error'])){ 
 	 header('Location:sent.php');
 	 exit();
 }
@@ -59,8 +60,8 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
                 </div>
 
 				<div class="form-item">性別
-					<label><input type="radio" name="gender" value="男性" <?php if(!empty($error) && $_SESSION['gender']==="男性"){echo 'checked';}?>>男性</label>
-					<label><input type="radio" name="gender" value="女性" <?php if(!empty($error) && $_SESSION['gender']==="女性"){echo 'checked';}?>>女性</label>
+					<label><input type="radio" name="gender" value="1" <?php if(!empty($error) && $_SESSION['gender']==="1"){echo 'checked';}?>>男性</label>
+					<label><input type="radio" name="gender" value="2" <?php if(!empty($error) && $_SESSION['gender']==="2"){echo 'checked';}?>>女性</label>
 
 					<!-- 性別エラー文表示 -->
 					<?php if (isset($error['gender'])&& in_array("blank", $error['gender'])):?>
@@ -161,6 +162,10 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 
 					<?php if (isset($error['email'])&& in_array("correct", $error['email'])):?>
 					<p class="error">メールアドレスは正しい形式で入力してください。</p>
+					<?php endif;?>
+
+					<?php if (isset($error['email'])&& in_array("duplicate", $error['email'])):?>
+					<p class="error">登録済みのメールアドレスです。</p>
 					<?php endif;?>
 
 				</div>
