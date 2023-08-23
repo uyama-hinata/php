@@ -1,3 +1,14 @@
+<?php
+require("./dbconnect.php");
+session_start();
+// すべてのセッション変数をアンセットする
+$_SESSION = array();
+// セッションを破棄する
+session_destroy();
+
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>

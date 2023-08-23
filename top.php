@@ -1,7 +1,11 @@
 <?php
 require("./dbconnect.php");
 session_start();
-
+if (!isset($_SESSION['name'])) {
+    // ログインページにリダイレクト
+    header('Location: login.php');
+    exit;
+}
 ?>
 
 
