@@ -26,7 +26,7 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 	  <link rel="stylesheet" href="stylesheet.css">
 	</head>
 	<body>
-	    <div class="main">
+	    <main>
 		    <form action ="sent.php" method ="POST" > 
 			    <div class="form-title">会員登録フォーム </div>
 
@@ -170,10 +170,11 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 
 				</div>
 
-		        <input type="submit" class="btn_next" value="確認画面へ" >
+		        <input type="submit" class="btn next" value="確認画面へ" >
 
 	        </form>
+			<a href="logout.php" class="btn back" >トップへ戻る</a>
 			<?php session_destroy(); ?>
-	   </div>
+		</main>
 	</body>
 </html>

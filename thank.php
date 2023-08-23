@@ -5,6 +5,7 @@ session_start();
 // 初回時の登録
 
 if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
+    $hashedPassword = password_hash($_POST['password1'], PASSWORD_DEFAULT);
     $stmt=$db->prepare("INSERT INTO members SET name_sei=?, name_mei=?, gender=?, pref_name=?, address=?, password=? ,email=?, created_at=NOW(), updated_at=NOW()");
     $stmt->execute(array(
         $_POST['family-name'],
@@ -12,7 +13,7 @@ if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
         $_POST['gender'],
         $_POST['prefecture'],
         $_POST['address'],
-        $_POST['password1'],
+        $hashedPassword,// ハッシュ化されたパスワードを保存
         $_POST['email'],
     ));
 }
@@ -47,9 +48,10 @@ if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
 	  <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <div class="thank-main">
+        <main>
         <h1>会員登録完了</h1>
         <p>会員登録が完了しました。</p>
-        <div>
+        <a href="logout.php" class="btn back">トップへ戻る</a>
+        </main>
     </body>
 </html>

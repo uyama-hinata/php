@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
 	}
 }
-
+// ボタン連打による二重登録を防ぐ
 $token = bin2hex(random_bytes(32));
 $_SESSION['token'] = $token;
 
@@ -113,7 +113,7 @@ $_SESSION['token'] = $token;
 	  <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <div class="main">
+        <main>
             <form action="thank.php" method="POST">
               <div class="dislay-register">
                  <div class="form-title">会員情報確認画面</div> 
@@ -153,12 +153,12 @@ $_SESSION['token'] = $token;
                  <input type="hidden" name="token" value="<?php echo $token; ?>">
                 
 
-                <input type="submit" class="btn_next" value="登録完了">
+                <input type="submit" class="btn next" value="登録完了">
                 
             </form>
             
-            <input type="submit" class="btn_back" value="前へ戻る" onclick=history.back()>
+            <input type="submit" class="btn back" value="前へ戻る" >
 
-        </div>
+        </main>
     </body>
 </html>
