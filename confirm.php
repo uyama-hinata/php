@@ -139,18 +139,18 @@ $_SESSION['token'] = $token;
                  <div class="form-item">メールアドレス
                  <?php echo $_POST['email'];?>
                  </div>
+               </div>
 
-                </div>
 
-                 <!-- 隠しフィールドでデータを持ち越す -->
-                 <input type="hidden" name="family-name" value="<?php echo $_POST['family-name'];?>">
-                 <input type="hidden" name="first-name" value="<?php echo $_POST['first-name'];?>">
-                 <input type="hidden" name="gender" value="<?php echo $_POST['gender'];?>">
-                 <input type="hidden" name="prefecture" value="<?php echo $_POST['prefecture'];?>">
-                 <input type="hidden" name="address" value="<?php echo $_POST['address'];?>">
-                 <input type="hidden" name="password1" value="<?php echo $_POST['password1'];?>">
-                 <input type="hidden" name="email" value="<?php echo $_POST['email'];?>">
-                 <input type="hidden" name="token" value="<?php echo $token; ?>">
+                <!-- 隠しフィールドでデータを持ち越す -->
+                <input type="hidden" name="family-name" value="<?php echo $_POST['family-name'];?>">
+                <input type="hidden" name="first-name" value="<?php echo $_POST['first-name'];?>">
+                <input type="hidden" name="gender" value="<?php echo $_POST['gender'];?>">
+                <input type="hidden" name="prefecture" value="<?php echo $_POST['prefecture'];?>">
+                <input type="hidden" name="address" value="<?php echo $_POST['address'];?>">
+                <input type="hidden" name="password1" value="<?php echo $_POST['password1'];?>">
+                <input type="hidden" name="email" value="<?php echo $_POST['email'];?>">
+                <input type="hidden" name="token" value="<?php echo $token; ?>">
                 
 
                 <input type="submit" class="btn next" value="登録完了">

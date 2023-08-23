@@ -54,8 +54,8 @@ if (!empty($_POST)) {
     <body>
         <main>
          <form action="" method="post">
-             <div class="form-title">ログイン </div>
-
+             <div class="form-title">ログイン</div>
+    
              <div class="form-item"> 
                  <span>メールアドレス(ID)</span>
                  <input type="email" name="email" value="<?php if(!empty($error)){echo $email;}?>">
@@ -74,7 +74,6 @@ if (!empty($_POST)) {
              </div>
 
              <input type="submit" class="btn next" value="ログイン">
-
          </form>
          <a href="logout.php"  class="btn back">トップへ戻る</a>
         </main>

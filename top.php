@@ -1,6 +1,7 @@
 <?php
 require("./dbconnect.php");
 session_start();
+
 ?>
 
 
@@ -12,10 +13,11 @@ session_start();
     </head>
     <body>
         <header>
-            <div class="header-title">ようこそ<?php echo htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); ?>様</div>
+            <div class="header-title">ようこそ <?php echo htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); ?> 様</div>
             <div class="header-list">
                 <ul>
                     <li><a href="logout.php">ログアウト</a></li>
+                    <li><a href="thread_regist.php">新規スレッド作成</a></li>
                 </ul>
             </div>
 

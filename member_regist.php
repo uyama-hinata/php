@@ -11,7 +11,7 @@ if(isset($_SESSION['error'])){
 
 // エラーない時は次画面へ
 if(!empty($_POST) && !isset($_SESSION['error'])){ 
-	 header('Location:sent.php');
+	 header('Location:confirm.php');
 	 exit();
 }
 
@@ -27,7 +27,7 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 	</head>
 	<body>
 	    <main>
-		    <form action ="sent.php" method ="POST" > 
+		    <form action ="confirm.php" method ="POST" > 
 			    <div class="form-title">会員登録フォーム </div>
 
 			    <div class="form-item"> 
