@@ -18,6 +18,8 @@ if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
     ));
 }
 
+unset($_SESSION['token']);
+
 
 //更新時の登録
 // $stmt = $db->prepare("UPDATE members SET name_sei=?, name_mei=?, gender=?, pref_name=?, address=?, password=?, email=?, updated_at=NOW() WHERE id=?");

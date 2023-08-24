@@ -97,7 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: member_regist.php');
         exit();
 	}
+
 }
+
 // ボタン連打による二重登録を防ぐ
 $token = bin2hex(random_bytes(32));
 $_SESSION['token'] = $token;
@@ -157,7 +159,7 @@ $_SESSION['token'] = $token;
                 
             </form>
             
-            <input type="submit" class="btn back" value="前へ戻る" >
+            <input type="submit" class="btn back" value="前へ戻る" onclick="history.back()">
 
         </main>
     </body>

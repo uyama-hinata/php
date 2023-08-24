@@ -1,11 +1,16 @@
 <?php
-require("./dbconnect.php");
+
 session_start();
 if (!isset($_SESSION['name'])) {
+    session_destroy();
     // ログインページにリダイレクト
-    header('Location: login.php');
+    header('Location: logout.php');
     exit;
 }
+
+unset($_SESSION['threadtitle']);
+unset($_SESSION['comment']);
+
 ?>
 
 

@@ -1,5 +1,5 @@
 <?php
-require("./dbconnect.php");
+
 session_start();
 // すべてのセッション変数をアンセットする
 $_SESSION = array();

@@ -14,7 +14,6 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 	 header('Location:confirm.php');
 	 exit();
 }
-
 ?>
 
 

@@ -32,6 +32,7 @@ if (!empty($_POST)) {
     if(empty($error)){
         if($data && $data['email'] === $email && password_verify($password, $data['password'])){
             $_SESSION['name'] = $data['name_sei'] . ' ' . $data['name_mei'];
+            $_SESSION['id']=$data['id'];
             header('Location:top.php');
             exit;
         }else{
