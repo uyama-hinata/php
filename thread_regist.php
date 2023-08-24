@@ -23,13 +23,13 @@ if (!empty($_POST)) {
     // バリデーション
     if ($threadtitle=== '') {
         $error['threadtitle-blank'] = 'スレッドタイトルを入力してください';
-    }elseif (mb_strlen($threadtitle) > 101) {
+    }elseif (mb_strlen($threadtitle) > 100) {
         $error['threadtitle-length']= '100文字以内で入力してください';
     }
     
     if ($comment=== '') {
         $error['comment-blank'] = 'コメントを入力してください';
-    }elseif (mb_strlen($comment) > 501) {
+    }elseif (mb_strlen($comment) > 500) {
         $error['comment-length']= '500文字以内で入力してください';
     }
 
