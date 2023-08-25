@@ -4,6 +4,7 @@ session_start();
 // 入力情報をデータベースに登録
 // 初回時の登録
 
+
 if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
     $hashedPassword = password_hash($_POST['password1'], PASSWORD_DEFAULT);
     $stmt=$db->prepare("INSERT INTO members SET name_sei=?, name_mei=?, gender=?, pref_name=?, address=?, password=? ,email=?, created_at=NOW(), updated_at=NOW()");
@@ -53,7 +54,7 @@ unset($_SESSION['token']);
         <main>
         <h1>会員登録完了</h1>
         <p>会員登録が完了しました。</p>
-        <a href="logout.php" class="btn back">トップへ戻る</a>
+        <a href="top.php" class="btn back">トップへ戻る</a>
         </main>
     </body>
 </html>

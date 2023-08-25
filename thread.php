@@ -62,7 +62,7 @@ if (isset($_GET['search'])) {
                     <?php foreach ($threads as $thread): ?>
                         <tr>
                             <td>ID：<?php echo htmlspecialchars($thread['member_id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo htmlspecialchars($thread['title'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><a href="thread_detail.php?id=<?php echo $thread['id']; ?>"><?php echo htmlspecialchars($thread['title'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($thread['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -73,7 +73,7 @@ if (isset($_GET['search'])) {
                     <?php foreach ($results as $row): ?>
                         <tr>
                             <td>ID：<?php echo htmlspecialchars($row['member_id']); ?></td>
-                            <td><?php echo htmlspecialchars($row['title']); ?></td>
+                            <td><a href="thread_detail.php?id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['title']); ?></td>
                             <td><?php echo htmlspecialchars($row['created_at']); ?></td>
                         </tr>
                     <?php endforeach; ?>

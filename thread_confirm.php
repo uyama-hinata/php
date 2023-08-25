@@ -49,12 +49,14 @@ exit();
             <form action="" method="post">
                 <div class="form-title">スレッド作成確認画面</div>
 
-                <div  class="form-item"><label>スレッドタイトル</label>
-                <?php echo nl2br(htmlspecialchars($_SESSION['threadtitle'], ENT_QUOTES, 'UTF-8'));?>
+                <div  class="confirm-item">
+                    <div class="confirm-label">スレッドタイトル</div>
+                    <div class="confirm-content"><?php echo nl2br(htmlspecialchars($_SESSION['threadtitle'], ENT_QUOTES, 'UTF-8'));?></div>
                 </div>
 
-                <div class="form-item"><label>コメント</label>
-                <?php echo nl2br(htmlspecialchars($_SESSION['comment'], ENT_QUOTES, 'UTF-8'));?>
+                <div class="confirm-item">
+                    <div class="confirm-label">コメント</div>
+                    <span class="confirm-content"><?php echo nl2br(htmlspecialchars($_SESSION['comment'], ENT_QUOTES, 'UTF-8'));?></span>
                 </div>
 
                 <!-- 隠しフィールドでデータを持ち越す -->

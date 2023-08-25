@@ -8,6 +8,7 @@ main {
     background-color:#c4dffa ;
     color:#333;
     text-align: center;
+    margin: 0px 300px;
 }
 
 .form-title {
@@ -92,10 +93,50 @@ th, td {
 }
 
 td {
-    padding: 5px 10px;  /* 上下左右に10pxのpaddingを追加 */
+    padding: 5px 10px;  
+    color:blue;
 }
 
 .table-title{
     font-weight: bold;
     margin: 10px 0px;
 }
+
+textarea {
+    width: 500px;
+    height: 150px;
+    resize: none;  /* ユーザーがサイズ変更をできないようにする */
+}
+
+tbody a {
+    color:blue;
+}
+
+
+.detail-title{
+    font-weight: bold;
+}
+
+
+.detail-content{
+    border:2px solid blue;
+    border-radius:10px;
+    margin: 10px 0px;
+    text-align: left;
+}
+
+.confirm-label,.confirm-content{
+    text-align: left;
+}
+
+.confirm-content {
+    padding-left: 10px; 
+}
+
+.confirm-item{
+    margin-top: 10px;
+    display: grid; 
+    grid-template-columns: 1fr 3fr; /* 項目名は全体の1/4の幅、入力値は全体の3/4の幅とします */
+    gap: 10px; /* グリッドセルの間隔を設定します */
+}
+

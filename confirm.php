@@ -120,25 +120,30 @@ $_SESSION['token'] = $token;
               <div class="dislay-register">
                  <div class="form-title">会員情報確認画面</div> 
 
-                 <div class="form-item">氏名
+                 <div class="confirm-item">
+                 <div class="confirm-label">氏名</div>
                  <?php echo $_POST['family-name'];?>
                  <?php echo $_POST['first-name'];?>
                  </div>
 
-                 <div class="form-item">性別
+                 <div class="confirm-item">
+                 <div class="confirm-label">性別</div>
                  <?php if($_POST['gender']==="1"){echo "男性";}elseif($_POST['gender']==="2"){echo "女性";};?>
                  </div>
 
-                 <div class="form-item">住所
+                 <div class="confirm-item">
+                 <div class="confirm-label">住所</div>
                  <?php echo $_POST['prefecture'];?>
                  <?php echo $_POST['address'];?>
                  </div>
 
-                 <div class="form-item">パスワード
+                 <div class="confirm-item">
+                 <div class="confirm-label">パスワード</div>
                  セキュリティのため非表示
                  </div>
 
-                 <div class="form-item">メールアドレス
+                 <div class="confirm-item">
+                 <div class="confirm-label">メールアドレス</div>
                  <?php echo $_POST['email'];?>
                  </div>
                </div>
