@@ -41,6 +41,7 @@ exit();
 <html>
     <head>
      <meta charset="utf-8">
+     <title>スレッド確認</title>
      <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>

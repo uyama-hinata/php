@@ -13,6 +13,7 @@ session_destroy();
 <html>
     <head>
         <meta charset="utf-8">
+        <title>トップ（ログアウト）</title>
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>

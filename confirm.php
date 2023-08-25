@@ -111,7 +111,7 @@ $_SESSION['token'] = $token;
 <html>
     <head>
       <meta charset="utf-8">
-	  <title>会員登録フォーム</title>
+	  <title>会員情報確認</title>
 	  <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>

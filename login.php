@@ -49,6 +49,7 @@ if (!empty($_POST)) {
 <html>
     <head>
     <meta charset="utf-8">
+    <title>ログイン画面</title>
     <link rel="stylesheet" href="stylesheet.css">
     </head>
 

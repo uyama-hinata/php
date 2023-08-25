@@ -47,6 +47,7 @@ if (!empty($_POST)) {
 <html>
     <head>
      <meta charset="utf-8">
+     <title>スレッド作成</title>
      <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
