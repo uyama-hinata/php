@@ -27,6 +27,7 @@ unset($_SESSION['comment']);
                 <ul>
                     <li><a href="logout.php">ログアウト</a></li>
                     <li><a href="thread_regist.php">新規スレッド作成</a></li>
+                    <li><a href="thread.php">スレッド一覧</a></li>
                 </ul>
             </div>
 
