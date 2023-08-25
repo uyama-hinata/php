@@ -50,42 +50,37 @@ if (isset($_GET['search'])) {
             <!-- エラー文表示 -->
             <div class="error"><?php if (isset($_GET['search'])&& $searchKeyword ===""){echo $error['search'];}?></div>
 
-            <!-- 検索結果表示 -->
-            <div class="table-title"><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "検索結果";}?></div>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "";}?></th>
-                        <th><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "タイトル";}?></th>
-                        <th><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "コメント";}?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($results as $row): ?>
-                        <tr>
-                            <td>ID：<?php echo htmlspecialchars($row['id']); ?></td>
-                            <td><?php echo htmlspecialchars($row['title']); ?></td>
-                            <td><?php echo htmlspecialchars($row['content']); ?></td>
-                            
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-
-             <!-- 一覧表示 -->
+            
+            
+            
             <div class="table-title">スレッド一覧</div>
             <table border="1">
                 <tbody>
-                <?php foreach ($threads as $thread): ?>
-                    <tr>
-                        <td>ID：<?php echo htmlspecialchars($thread['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td><?php echo htmlspecialchars($thread['title'], ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td><?php echo htmlspecialchars($thread['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    </tr>
-                <?php endforeach; ?>
+
+                <!-- 一覧表示 -->
+                <?php if (!isset($_GET['search']) || $searchKeyword ===""):?>
+                    <?php foreach ($threads as $thread): ?>
+                        <tr>
+                            <td>ID：<?php echo htmlspecialchars($thread['member_id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($thread['title'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($thread['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <!-- 検索結果表示 -->
+                <?php if (isset($_GET['search']) && $searchKeyword !==""):?>
+                    <?php foreach ($results as $row): ?>
+                        <tr>
+                            <td>ID：<?php echo htmlspecialchars($row['member_id']); ?></td>
+                            <td><?php echo htmlspecialchars($row['title']); ?></td>
+                            <td><?php echo htmlspecialchars($row['created_at']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
                 </tbody>
             </table>
-
 
             <!-- ログイン時とログアウト時で「トップに戻る」の遷移先を変える -->
             <?php if(isset($_SESSION['name'])): ?>
