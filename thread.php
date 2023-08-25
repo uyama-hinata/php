@@ -52,20 +52,12 @@ if (isset($_GET['search'])) {
             <!-- 検索結果表示 -->
             <div class="table-title"><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "検索結果";}?></div>
             <table border="1">
-                <thead>
-                    <tr>
-                        <th><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "";}?></th>
-                        <th><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "タイトル";}?></th>
-                        <th><?php if (isset($_GET['search'])&& $searchKeyword !==""){echo "コメント";}?></th>
-                    </tr>
-                </thead>
                 <tbody>
                     <?php foreach ($results as $row): ?>
                         <tr>
                             <td>ID：<?php echo htmlspecialchars($row['member_id']); ?></td>
                             <td><?php echo htmlspecialchars($row['title']); ?></td>
-                            <td><?php echo htmlspecialchars($row['content']); ?></td>
-                            
+                            <td><?php echo htmlspecialchars($row['created_at']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
