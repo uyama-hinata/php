@@ -30,7 +30,7 @@ if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
     unset($_SESSION['token']);
 }
 
-header('Location: top.php');
+header('Location: thread.php');
 exit();
 
 }

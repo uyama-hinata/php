@@ -39,7 +39,7 @@ if (!empty($_POST)) {
         header('Location: thread_confirm.php');
         exit();
 	}
-
+    
 
 }
 ?>
@@ -75,7 +75,7 @@ if (!empty($_POST)) {
              <input type="submit" class="btn next" value="確認画面へ">
 
             </form>
-            <a href="top.php"  class="btn back">トップへ戻る</a>
+            <a href="thread.php"  class="btn back">一覧へ戻る</a>
         </main>
     </body>
 </html>

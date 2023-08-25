@@ -21,6 +21,7 @@ session_destroy();
                 <ul>
                     <li><a href="login.php">ログイン</a></li>
                     <li><a href="member_regist.php">新規会員登録</a></li>
+                    <li><a href="thread.php">スレッド一覧</a></li>
                 </ul>
             </div>
 

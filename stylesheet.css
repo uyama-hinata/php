@@ -76,4 +76,30 @@ li {
     
 }
 
+table, th, td {
+    border: 1px solid transparent;
+}
 
+table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+th, td {
+    border: none;
+}
+
+td {
+    padding: 5px 10px;  /* 上下左右に10pxのpaddingを追加 */
+}
+
+.table-title{
+    font-weight: bold;
+    margin: 10px 0px;
+}
+
+th{
+    font-weight: normal;
+}
