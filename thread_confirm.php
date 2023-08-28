@@ -28,6 +28,9 @@ if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
         $_POST['comment'],
     ));
     unset($_SESSION['token']);
+    unset($_SESSION['threadtitle']);
+    unset($_SESSION['comment']);
+    
 }
 
 header('Location: thread.php');
