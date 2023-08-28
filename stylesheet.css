@@ -120,7 +120,9 @@ tbody a {
 
 .detail-content{
     border:2px solid blue;
-    border-radius:10px;
+    padding: 5px 10px;
+    color:blue;
+    border-radius:20px;
     margin: 10px 0px;
     text-align: left;
 }
@@ -140,3 +142,23 @@ tbody a {
     gap: 10px; /* グリッドセルの間隔を設定します */
 }
 
+.comment-wrapper{
+    text-align: left;
+}
+
+.comment{
+    border-bottom:1px solid #6b6a6a;
+    padding: 5px 0; 
+}
+
+.pagination {
+    display: flex;       /* フレックスボックスを利用 */
+    justify-content: center; /* 中央寄せ */
+    gap: 10px;          /* 両ボタンの間隔 */
+}
+
+.disabled {
+    color: #888;  /* グレーの文字色 */
+    cursor: not-allowed;  /* カーソルを禁止マークにする */
+    pointer-events: none; /* クリックできなくする */
+}
