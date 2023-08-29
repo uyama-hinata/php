@@ -23,7 +23,7 @@ if (!empty($_POST)) {
     }
 
     // データベースと相違ないか判定
-    $sql = "SELECT * FROM members WHERE email = :email AND deleated_at IS NULL";
+    $sql = "SELECT * FROM members WHERE email = :email AND deleted_at IS NULL";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':email', $email);
     $stmt->execute();
