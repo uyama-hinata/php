@@ -162,3 +162,18 @@ tbody a {
     cursor: not-allowed;  /* カーソルを禁止マークにする */
     pointer-events: none; /* クリックできなくする */
 }
+
+.fa-heart{
+    color: #a9b9d6;
+}
+
+.fa-heart.liked {
+    color: red;
+}
+
+.like-btn {
+    float: right;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
