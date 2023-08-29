@@ -115,57 +115,59 @@ $_SESSION['token'] = $token;
 	  <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <main>
-            <form action="thank.php" method="POST">
-              <div class="dislay-register">
-                 <div class="form-title">会員情報確認画面</div> 
+        <div class="wrapper">
+            <main>
+                <form action="thank.php" method="POST">
+                <div class="dislay-register">
+                    <div class="form-title">会員情報確認画面</div> 
 
-                 <div class="confirm-item">
-                 <div class="confirm-label">氏名</div>
-                 <?php echo $_POST['family-name'];?>
-                 <?php echo $_POST['first-name'];?>
-                 </div>
+                    <div class="confirm-item">
+                    <div class="confirm-label">氏名</div>
+                    <?php echo $_POST['family-name'];?>
+                    <?php echo $_POST['first-name'];?>
+                    </div>
 
-                 <div class="confirm-item">
-                 <div class="confirm-label">性別</div>
-                 <?php if($_POST['gender']==="1"){echo "男性";}elseif($_POST['gender']==="2"){echo "女性";};?>
-                 </div>
+                    <div class="confirm-item">
+                    <div class="confirm-label">性別</div>
+                    <?php if($_POST['gender']==="1"){echo "男性";}elseif($_POST['gender']==="2"){echo "女性";};?>
+                    </div>
 
-                 <div class="confirm-item">
-                 <div class="confirm-label">住所</div>
-                 <?php echo $_POST['prefecture'];?>
-                 <?php echo $_POST['address'];?>
-                 </div>
+                    <div class="confirm-item">
+                    <div class="confirm-label">住所</div>
+                    <?php echo $_POST['prefecture'];?>
+                    <?php echo $_POST['address'];?>
+                    </div>
 
-                 <div class="confirm-item">
-                 <div class="confirm-label">パスワード</div>
-                 セキュリティのため非表示
-                 </div>
+                    <div class="confirm-item">
+                    <div class="confirm-label">パスワード</div>
+                    セキュリティのため非表示
+                    </div>
 
-                 <div class="confirm-item">
-                 <div class="confirm-label">メールアドレス</div>
-                 <?php echo $_POST['email'];?>
-                 </div>
-               </div>
+                    <div class="confirm-item">
+                    <div class="confirm-label">メールアドレス</div>
+                    <?php echo $_POST['email'];?>
+                    </div>
+                </div>
 
 
-                <!-- 隠しフィールドでデータを持ち越す -->
-                <input type="hidden" name="family-name" value="<?php echo $_POST['family-name'];?>">
-                <input type="hidden" name="first-name" value="<?php echo $_POST['first-name'];?>">
-                <input type="hidden" name="gender" value="<?php echo $_POST['gender'];?>">
-                <input type="hidden" name="prefecture" value="<?php echo $_POST['prefecture'];?>">
-                <input type="hidden" name="address" value="<?php echo $_POST['address'];?>">
-                <input type="hidden" name="password1" value="<?php echo $_POST['password1'];?>">
-                <input type="hidden" name="email" value="<?php echo $_POST['email'];?>">
-                <input type="hidden" name="token" value="<?php echo $token; ?>">
+                    <!-- 隠しフィールドでデータを持ち越す -->
+                    <input type="hidden" name="family-name" value="<?php echo $_POST['family-name'];?>">
+                    <input type="hidden" name="first-name" value="<?php echo $_POST['first-name'];?>">
+                    <input type="hidden" name="gender" value="<?php echo $_POST['gender'];?>">
+                    <input type="hidden" name="prefecture" value="<?php echo $_POST['prefecture'];?>">
+                    <input type="hidden" name="address" value="<?php echo $_POST['address'];?>">
+                    <input type="hidden" name="password1" value="<?php echo $_POST['password1'];?>">
+                    <input type="hidden" name="email" value="<?php echo $_POST['email'];?>">
+                    <input type="hidden" name="token" value="<?php echo $token; ?>">
+                    
+
+                    <input type="submit" class="btn next" value="登録完了">
+                    
+                </form>
                 
+                <input type="submit" class="btn back" value="前へ戻る" onclick="history.back()">
 
-                <input type="submit" class="btn next" value="登録完了">
-                
-            </form>
-            
-            <input type="submit" class="btn back" value="前へ戻る" onclick="history.back()">
-
-        </main>
+            </main>
+        </div>
     </body>
 </html>

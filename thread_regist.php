@@ -51,32 +51,34 @@ if (!empty($_POST)) {
      <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <main>
-            <form action="" method="post">
-             <div class="form-title">スレッド作成フォーム</div>
+        <div class="wrapper">
+            <main>
+                <form action="" method="post">
+                <div class="form-title">スレッド作成フォーム</div>
 
-             <div class="form-item">
-                 スレッドタイトル
-                 <input type="text" name="threadtitle" value="<?php if(!empty($error)){echo $threadtitle;} elseif(empty($error) && isset($_SESSION['threadtitle'])){echo $_SESSION['threadtitle'];}?>">
+                <div class="form-item">
+                    スレッドタイトル
+                    <input type="text" name="threadtitle" value="<?php if(!empty($error)){echo $threadtitle;} elseif(empty($error) && isset($_SESSION['threadtitle'])){echo $_SESSION['threadtitle'];}?>">
 
-                 <!-- エラー文表示 -->
-                 <div class="error"><?php echo isset($error['threadtitle-blank']) ? $error['threadtitle-blank'] : ''; ?></div>
-                 <div class="error"><?php echo isset($error['threadtitle-length']) ? $error['threadtitle-length'] : ''; ?></div>
-             </div>
+                    <!-- エラー文表示 -->
+                    <div class="error"><?php echo isset($error['threadtitle-blank']) ? $error['threadtitle-blank'] : ''; ?></div>
+                    <div class="error"><?php echo isset($error['threadtitle-length']) ? $error['threadtitle-length'] : ''; ?></div>
+                </div>
 
-             <div  class="form-item">
-                 コメント
-                 <textarea type="text" name="comment" ><?php if(!empty($error)){echo$comment;} elseif(empty($error) && isset($_SESSION['comment'])){echo $_SESSION['comment'];}?></textarea>
+                <div  class="form-item">
+                    コメント
+                    <textarea type="text" name="comment" ><?php if(!empty($error)){echo$comment;} elseif(empty($error) && isset($_SESSION['comment'])){echo $_SESSION['comment'];}?></textarea>
 
-                 <!-- エラー文表示 -->
-                 <div class="error"><?php echo isset($error['comment-blank']) ? $error['comment-blank'] : ''; ?></div>
-                 <div class="error"><?php echo isset($error['comment-length']) ? $error['comment-length'] : ''; ?></div>
-             </div>
+                    <!-- エラー文表示 -->
+                    <div class="error"><?php echo isset($error['comment-blank']) ? $error['comment-blank'] : ''; ?></div>
+                    <div class="error"><?php echo isset($error['comment-length']) ? $error['comment-length'] : ''; ?></div>
+                </div>
 
-             <input type="submit" class="btn next" value="確認画面へ">
+                <input type="submit" class="btn next" value="確認画面へ">
 
-            </form>
-            <a href="thread.php"  class="btn back">一覧へ戻る</a>
-        </main>
+                </form>
+                <a href="thread.php"  class="btn back">一覧へ戻る</a>
+            </main>
+        </div>
     </body>
 </html>

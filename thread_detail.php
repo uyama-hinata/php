@@ -176,82 +176,84 @@ foreach($comments as $comment) {
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     </head>
     <body>
-        <header>
-            <ul>
-                <li><a href="thread.php">スレッド一覧に戻る</a></li>
-            </ul>
-        </header>
-        <main>
-            <div class="top-wrapper">
-                <!-- スレッドタイトル-->
-                <div class="detail-title"><?php echo nl2br(htmlspecialchars($thread['title']));?></div>
+        <div class="wrapper">
+            <header>
+                <ul>
+                    <li><a href="thread.php">スレッド一覧に戻る</a></li>
+                </ul>
+            </header>
+            <main>
+                <div class="top-wrapper">
+                    <!-- スレッドタイトル-->
+                    <div class="detail-title"><?php echo nl2br(htmlspecialchars($thread['title']));?></div>
 
-                <!-- 総コメント数 -->
-                <div class="detail-count"><?php echo $comment_count; ?>コメント</div>
-            
-                <!-- 作成日時 -->
-                <div class="detail-created.at"><?php echo $datetime->format('n/j/y G:i');?></div>
-            </div>
+                    <!-- 総コメント数 -->
+                    <div class="detail-count"><?php echo $comment_count; ?>コメント</div>
+                
+                    <!-- 作成日時 -->
+                    <div class="detail-created.at"><?php echo $datetime->format('n/j/y G:i');?></div>
+                </div>
 
-            <div class="pagination">
-                 <!-- 前へのリンク -->
-                 <?php if ($page > 1): ?>
-                    <a href="?id=<?php echo $id; ?>&page=<?php echo $page - 1; ?>">＜前へ</a>
-                 <?php else: ?>
-                    <span class="disabled">＜前へ</span>
-                 <?php endif; ?>
+                <div class="pagination">
+                    <!-- 前へのリンク -->
+                    <?php if ($page > 1): ?>
+                        <a href="?id=<?php echo $id; ?>&page=<?php echo $page - 1; ?>">＜前へ</a>
+                    <?php else: ?>
+                        <span class="disabled">＜前へ</span>
+                    <?php endif; ?>
 
-                 <!-- 次へのリンク -->
-                 <?php if (count($comments) === $commentsPerPage): ?>
-                    <a href="?id=<?php echo $id; ?>&page=<?php echo $page + 1;?>" ?>次へ＞</a>
-                 <?php else: ?>
-                    <span class="disabled">次へ＞</span>
-                 <?php endif; ?>
-            </div>
-            
-            <div class="middle-wrapper">
-                <!-- スレッド内容 -->
-                <div class="detail-content">
-                    投稿者：<?php echo htmlspecialchars($thread['member_name']);?> <?php echo $datetime->format('Y.m.d H:i');?><br>
-                    <?php echo nl2br(htmlspecialchars($thread['content']));?>
+                    <!-- 次へのリンク -->
+                    <?php if (count($comments) === $commentsPerPage): ?>
+                        <a href="?id=<?php echo $id; ?>&page=<?php echo $page + 1;?>" ?>次へ＞</a>
+                    <?php else: ?>
+                        <span class="disabled">次へ＞</span>
+                    <?php endif; ?>
+                </div>
+                
+                <div class="middle-wrapper">
+                    <!-- スレッド内容 -->
+                    <div class="detail-content">
+                        投稿者：<?php echo htmlspecialchars($thread['member_name']);?> <?php echo $datetime->format('Y.m.d H:i');?><br>
+                        <?php echo nl2br(htmlspecialchars($thread['content']));?>
+                    </div>
+
+
+                    <!-- コメント -->
+                    <div class="comment-wrapper">
+                        <?php foreach ($comments as $comment): ?>
+                            <div class="comment">
+                                <?php echo $comment['id'];?>.<?php echo htmlspecialchars($comment['member_name']);?> <?php echo htmlspecialchars($comment['formatted_date'], ENT_QUOTES);?><br>
+                                <?php echo $comment['comment'];?>
+                                
+                                <!-- いいね機能 -->
+                                <button class="like-btn" data-comment-id="<?php echo $comment['id']; ?>">
+                                <span class="fa-solid fa-heart <?php echo $comment['is_liked'] ? 'liked' : ''; ?>"></span>
+                                <span><?php echo $like_counts[$comment['id']];?></span>
+                                </button>
+                            </div>
+                        <?php endforeach;?>
+                    </div>
                 </div>
 
 
-                <!-- コメント -->
-                <div class="comment-wrapper">
-                    <?php foreach ($comments as $comment): ?>
-                        <div class="comment">
-                            <?php echo $comment['id'];?>.<?php echo htmlspecialchars($comment['member_name']);?> <?php echo htmlspecialchars($comment['formatted_date'], ENT_QUOTES);?><br>
-                            <?php echo $comment['comment'];?>
-                            
-                            <!-- いいね機能 -->
-                            <button class="like-btn" data-comment-id="<?php echo $comment['id']; ?>">
-                            <span class="fa-solid fa-heart <?php echo $comment['is_liked'] ? 'liked' : ''; ?>"></span>
-                            <span><?php echo $like_counts[$comment['id']];?></span>
-                            </button>
-                        </div>
-                    <?php endforeach;?>
+                <div class="bottm-wrapper">
+                    <?php if(isset($_SESSION['name'])): ?>
+                        <form action="" method="post"> 
+                            <div  class="form-item">
+                                <textarea type="text" name="comment" ><?php if(!empty($error)){echo$_POST['comment'];} ?></textarea><br>
+
+                                <!-- エラー文表示 -->
+                                <div class="error"><?php echo isset($error['comment-blank']) ? $error['comment-blank'] : ''; ?></div>
+                                <div class="error"><?php echo isset($error['comment-length']) ? $error['comment-length'] : ''; ?></div>
+
+                            </div>
+                            <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES); ?>">
+                            <input type="submit" class="btn next" value="コメントする">
+                        </form>
+                    <?php endif;?>
                 </div>
-            </div>
 
-
-            <div class="bottm-wrapper">
-                <?php if(isset($_SESSION['name'])): ?>
-                    <form action="" method="post"> 
-                        <div  class="form-item">
-                            <textarea type="text" name="comment" ><?php if(!empty($error)){echo$_POST['comment'];} ?></textarea><br>
-
-                            <!-- エラー文表示 -->
-                            <div class="error"><?php echo isset($error['comment-blank']) ? $error['comment-blank'] : ''; ?></div>
-                            <div class="error"><?php echo isset($error['comment-length']) ? $error['comment-length'] : ''; ?></div>
-
-                        </div>
-                        <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES); ?>">
-                        <input type="submit" class="btn next" value="コメントする">
-                    </form>
-                <?php endif;?>
-            </div>
-
-        </main>
+            </main>
+        </div>
     </body>
 </html>

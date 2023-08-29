@@ -22,20 +22,30 @@ unset($_SESSION['comment']);
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <header>
-            <div class="header-title">ようこそ <?php echo htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); ?> 様</div>
-            <div class="header-list">
-                <ul>
-                    <li><a href="logout.php">ログアウト</a></li>
-                    <li><a href="thread_regist.php">新規スレッド作成</a></li>
-                    <li><a href="thread.php">スレッド一覧</a></li>
-                </ul>
-            </div>
+        <div class="wrapper">
+            <header>
+                <div class="header-title">ようこそ <?php echo htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); ?> 様</div>
+                <div class="header-list">
+                    <ul>
+                        <li><a href="logout.php">ログアウト</a></li>
+                        <li><a href="thread_regist.php">新規スレッド作成</a></li>
+                        <li><a href="thread.php">スレッド一覧</a></li>
+                    </ul>
+                </div>
 
-        </header>
-        <main>
-        
-        </main>
+            </header>
+            <main>
+            
+            
+            </main>
+            <footer>
+                <div class="fotter-list">
+                    <ul>
+                        <li><a href="member_withdrawal.php">退会</a></li>
+                    </ul>
+                </div>
+            </footer>
+            </div>
         </div>
     </body>
 

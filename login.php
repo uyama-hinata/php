@@ -23,7 +23,7 @@ if (!empty($_POST)) {
     }
 
     // データベースと相違ないか判定
-    $sql = "SELECT * FROM members WHERE email = :email";
+    $sql = "SELECT * FROM members WHERE email = :email AND deleated_at IS NULL";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':email', $email);
     $stmt->execute();
@@ -54,31 +54,32 @@ if (!empty($_POST)) {
     </head>
 
     <body>
-        <main>
-         <form action="" method="post">
-             <div class="form-title">ログイン</div>
-    
-             <div class="form-item"> 
-                 <span>メールアドレス(ID)</span>
-                 <input type="email" name="email" value="<?php if(!empty($error)){echo $email;}?>">
+        <div class="wrapper">
+            <main>
+            <form action="" method="post">
+                <div class="form-title">ログイン</div>
+        
+                <div class="form-item"> 
+                    <span>メールアドレス(ID)</span>
+                    <input type="email" name="email" value="<?php if(!empty($error)){echo $email;}?>">
 
-                 <!-- エラー文表示 -->
-                 <div class="error"><?php echo isset($error['email']) ? $error['email'] : ''; ?></div>
-             </div>
+                    <!-- エラー文表示 -->
+                    <div class="error"><?php echo isset($error['email']) ? $error['email'] : ''; ?></div>
+                </div>
 
-             <div class="form-item">
-                 <span>パスワード</span>
-                 <input type="password" name="password" >
+                <div class="form-item">
+                    <span>パスワード</span>
+                    <input type="password" name="password" >
 
-                 <!-- エラー文表示 -->
-                 <div class="error"><?php echo isset($error['password']) ? $error['password'] : ''; ?></div>
-                 <div class="error"><?php echo isset($error['login']) ? $error['login'] : ''; ?></div>
-             </div>
+                    <!-- エラー文表示 -->
+                    <div class="error"><?php echo isset($error['password']) ? $error['password'] : ''; ?></div>
+                    <div class="error"><?php echo isset($error['login']) ? $error['login'] : ''; ?></div>
+                </div>
 
-             <input type="submit" class="btn next" value="ログイン">
-         </form>
-         <a href="logout.php"  class="btn back">トップへ戻る</a>
-        </main>
-
+                <input type="submit" class="btn next" value="ログイン">
+            </form>
+            <a href="logout.php"  class="btn back">トップへ戻る</a>
+            </main>
+        </div>
     </body>
 </html>

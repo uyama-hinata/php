@@ -21,25 +21,6 @@ if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
 
 unset($_SESSION['token']);
 
-
-//更新時の登録
-// $stmt = $db->prepare("UPDATE members SET name_sei=?, name_mei=?, gender=?, pref_name=?, address=?, password=?, email=?, updated_at=NOW() WHERE id=?");
-// $stmt->execute(array(
-//     $_POST['family-name'],
-//     $_POST['first-name'],
-//     $_POST['gender'],
-//     $_POST['prefecture'],
-//     $_POST['address'],
-//     $_POST['password1'],
-//     $_POST['email'],
-//     $_POST['member_id']  // IDは何らかの方法で取得する？
-// ));
-
-// // 削除時の登録
-// $stmt = $db->prepare("UPDATE members SET deleted_at=NOW() WHERE id=?");
-// $stmt->execute(array($_POST['member_id']));  // IDは何らかの方法で取得する？
-
-
 ?>
 
 
@@ -51,10 +32,12 @@ unset($_SESSION['token']);
 	  <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <main>
-        <h1>会員登録完了</h1>
-        <p>会員登録が完了しました。</p>
-        <a href="top.php" class="btn back">トップへ戻る</a>
-        </main>
+        <div class="wrapper">
+            <main>
+            <h1>会員登録完了</h1>
+            <p>会員登録が完了しました。</p>
+            <a href="top.php" class="btn back">トップへ戻る</a>
+            </main>
+        </div>
     </body>
 </html>

@@ -17,20 +17,22 @@ session_destroy();
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <header>
-            <div class="header-list">
-                <ul>
-                    <li><a href="login.php">ログイン</a></li>
-                    <li><a href="member_regist.php">新規会員登録</a></li>
-                    <li><a href="thread.php">スレッド一覧</a></li>
-                </ul>
-            </div>
+        <div class="wrapper">
+            <header>
+                <div class="header-list">
+                    <ul>
+                        <li><a href="login.php">ログイン</a></li>
+                        <li><a href="member_regist.php">新規会員登録</a></li>
+                        <li><a href="thread.php">スレッド一覧</a></li>
+                    </ul>
+                </div>
 
-        </header>
-        <main>
-        
-        </main>
-        </div>
+            </header>
+            <main>
+            
+            </main>
+            </div>
+        </biv>
     </body>
 
 </html>
