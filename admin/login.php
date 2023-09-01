@@ -88,7 +88,7 @@ if(!empty($_POST)){
                         </div>
                     </div>
 
-                    <input type="submit" class="btn_next" value="ログイン">
+                    <input type="submit" class="btn_login" value="ログイン">
                 </form>
             </main>
             <footer>

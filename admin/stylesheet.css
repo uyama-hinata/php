@@ -21,18 +21,17 @@ main {
 
 .wrapper {
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 main {
+    margin-top: 20px;
     flex: 1;
 }
 
 header,footer{
-    height: 65px;
+    min-height: 65px;
     width: 100%;
-    background-color:hsla(20, 11%, 79%, 0.9);
+    background-color:hsla(16, 10%, 79%, 0.801);
 }
 
 header{
@@ -79,9 +78,63 @@ header{
     margin-top: 10px;
 }
 
-.btn_next{
+.btn_login{
     background-color: rgb(23, 74, 168);
     color: aliceblue;
     margin-top: 30px;
     padding:3px 12px;
+}
+
+.header-menu a {
+    text-decoration: none;
+    color:black;
+    border:#333 solid 1px;
+    margin-top: 15px;
+    margin-right: 10px;
+    padding:3px 12px;
+    display: block;
+}
+
+.toMember_btn {
+    text-decoration: none;
+    border:#396092 solid 2px;
+    color:#396092;
+    background-color: #dbe4f0;
+    border-radius:10px;
+    padding:15px 80px;
+}
+
+ table{
+    width:100%;
+    margin-top: 8px;
+ }
+
+ th{
+    background-color:hsla(16, 10%, 79%, 0.822);
+ }
+
+ .search_btn{
+    border:#396092 solid 2px;
+    color:#396092;
+    background-color: #dbe4f0;
+    margin: 15px 0px;
+    padding:8px 10px;
+    border-radius:10px;
+ }
+
+ .pagination{
+    text-align: right;
+    
+ }
+
+ .pagination a {
+    color:#333;
+    padding:2px 2px;
+    text-decoration: none;
+    display:inline-block;
+ }
+
+ .current_page {
+    background-color: rgb(24, 85, 155);
+    color: white;  
 }

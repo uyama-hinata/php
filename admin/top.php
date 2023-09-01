@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+unset($_SESSION['conditions']);
+
 if (empty($_SESSION['admin_name'])) {
     session_destroy();
     // ログインページにリダイレクト
@@ -40,10 +43,8 @@ if(!empty($_POST['logout'])){
 
             </header>
             <main>
-            
-            
+                <a href="member.php" class="toMember_btn">会員一覧</a>
             </main>
-            </div>
         </div>
     </body>
 
