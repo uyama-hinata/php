@@ -63,6 +63,7 @@ $andconditions=implode(" AND ",$conditions);
 
 $stmt=$db->prepare($countSql);
 $stmt->execute($params);
+var_dump($params);
 $membersCount=$stmt->fetchColumn();
 $totalPages = ceil($membersCount / $membersPerPage);
 
@@ -99,14 +100,12 @@ if(!empty($conditions)){
     $stmt->execute();
 }
 $members=$stmt->fetchAll(PDO::FETCH_ASSOC);
-echo('<pre>');
-var_dump($members);
-echo('</pre>');
 
 // 登録日時を指定の形式に直す
-foreach($members as &$member){
-    $timestamp=strtotime($member['created_at']);
-    $member['created_at']=date("Y/n/j",$timestamp);
+foreach($members as $key=>$member){
+    $dateFromDB=$member['created_at'];
+    $datetime=new Datetime($dateFromDB);
+    $members[$key]['created_at']=$datetime->format('Y/n/j');
 }
 
 ?>
@@ -158,9 +157,6 @@ foreach($members as &$member){
                     </tr>
 
                     <!-- 一覧表示 -->
-                    <?php echo('<pre>');
-                    var_dump($members);
-                    echo('</pre>');?>
                     <?php if (!isset($_POST['search'])):?>
                         
                         <?php foreach ($members as $member): ?>
