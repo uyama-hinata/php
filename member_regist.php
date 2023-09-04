@@ -81,7 +81,7 @@ if(!empty($_POST) && !isset($_SESSION['error'])){
 						?>
 						
 						<select name="prefecture">
-						<option value=""> 選択してください'</option>
+						<option value=""> 選択してください</option>
 							<?php 
 							foreach($towns as $town){
 								if(!empty($error) && ($town===$_SESSION['prefecture'])){echo "<option value='{$_SESSION['prefecture']}' selected>{$town}</option>";}
