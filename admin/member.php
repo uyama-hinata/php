@@ -9,6 +9,22 @@ if (empty($_SESSION['admin_name'])) {
     exit;
 }
 
+if(!empty($_POST['search']) && empty($_POST['search_id'])){
+    unset($_SESSION['search_id']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_male'])){
+    unset($_SESSION['search_male']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_female'])){
+    unset($_SESSION['search_female']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_prefecture'])){
+    unset($_SESSION['search_prefecture']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_word'])){
+    unset($_SESSION['search_word']);
+}
+
 
 if(!empty($_POST['search_id'])){
     $_SESSION['search_id']=$_POST['search_id'];
@@ -100,7 +116,15 @@ $sql.=" ORDER BY $orderBy $order";
 $membersPerPage=10;
 
 // 現在のページ番号を取得（デフォルトは1ページ目）
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+if(!empty($_POST['search'])){
+    $page=1;
+}elseif(!empty($_GET['page'])) {
+    $page= (int)$_GET['page'];
+}else{
+    $page=1;
+}
+
 if ($page <= 0) {
     $page = 1;
 }
@@ -121,9 +145,13 @@ $members=$stmt->fetchAll();
 
 $result=str_replace(" LIMIT $membersPerPage OFFSET $offset","",$sql);
 $stmt = $db->prepare($result);
+if(!empty($_POST['search_word']) || !empty($_SESSION['search_word'])){
+    $stmt->bindValue(':name_sei',$searchWord,PDO::PARAM_STR);
+    $stmt->bindParam(':name_mei',$searchWord,PDO::PARAM_STR);
+    $stmt->bindParam(':email',$searchWord,PDO::PARAM_STR);
+}
 $stmt->execute();
 $count = $stmt -> rowCount();
-
 $totalPages = ceil($count / $membersPerPage);
 
 
@@ -132,23 +160,6 @@ foreach($members as $key=>$member){
     $dateFromDB=$member['created_at'];
     $datetime=new Datetime($dateFromDB);
     $members[$key]['created_at']=$datetime->format('Y/n/j');
-}
-
-
-if(!empty($_POST['search']) && empty($_POST['search_id'])){
-    unset($_SESSION['search_id']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_male'])){
-    unset($_SESSION['search_male']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_female'])){
-    unset($_SESSION['search_female']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_prefecture'])){
-    unset($_SESSION['search_prefecture']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_word'])){
-    unset($_SESSION['search_word']);
 }
 
 ?>
@@ -259,6 +270,7 @@ if(!empty($_POST['search']) && empty($_POST['search_word'])){
 
                 <div class="pagination">
                     <!-- 前へのリンク -->
+                    
                     <?php if ($page > 1): ?>
                         <a href="?page=<?php echo $page - 1;?>&orderBy=<?php echo $orderBy;?>&order=<?php echo $order;?>">前へ</a>
                     <?php endif; ?>
@@ -282,6 +294,8 @@ if(!empty($_POST['search']) && empty($_POST['search_word'])){
                     <?php if ($page<$totalPages): ?>
                         <a href="?page=<?php echo $page + 1;?>&orderBy=<?php echo $orderBy;?>&order=<?php echo $order;?>">次へ</a>
                     <?php endif; ?>
+
+                    
                 </div>
             
             

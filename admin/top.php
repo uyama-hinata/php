@@ -1,7 +1,11 @@
 <?php
 session_start();
 
-unset($_SESSION['conditions']);
+unset($_SESSION['search_id']);
+unset($_SESSION['search_male']);
+unset($_SESSION['search_female']);
+unset($_SESSION['search_prefecture']);
+unset($_SESSION['search_word']);
 
 if (empty($_SESSION['admin_name'])) {
     session_destroy();
