@@ -9,87 +9,95 @@ if (empty($_SESSION['admin_name'])) {
     exit;
 }
 
+
+if(!empty($_POST['search_id'])){
+    $_SESSION['search_id']=$_POST['search_id'];
+}
+if(!empty($_POST['search_male'])){
+    $_SESSION['search_male']=$_POST['search_male'];
+}
+if(!empty($_POST['search_female'])){
+    $_SESSION['search_female']=$_POST['search_female'];
+}
+if(!empty($_POST['search_prefecture'])){
+    $_SESSION['search_prefecture']=$_POST['search_prefecture'];
+}
+if(!empty($_POST['search_word'])){
+    $_SESSION['search_word']=$_POST['search_word'];
+}
+
+
 $conditions = [];
-$sql="SELECT * FROM members WHERE deleted_at IS NULL";
-
-if(!empty($_POST['search'])){
-
-    // IDに基づく検索条件
-    if(!empty($_POST['search_id'])){
-        $conditions['search_id']=$_POST['search_id'];
-        $sql.=" AND id= {$conditions['search_id']}";
-    }
-
-    // 性別に基づく検索条件
-    if(!empty($_POST['search_male']) && empty($_POST['search_female'])){
-        $conditions['search_gender']=$_POST['search_male'];
-        $sql.=" AND gender={$conditions['search_gender']}";
-    }
-    elseif(empty($_POST['search_male']) && !empty($_POST['search_female'])){
-        $conditions['search_gender']=$_POST['search_female'];
-        $sql.=" AND gender={$conditions['search_gender']}";
-    } 
-
-    // 都道府県に基づく検索条件
-    if(!empty($_POST['search_prefecture'])){
-         $conditions['search_prefecture']=$_POST['search_prefecture'];
-         $sql.=" AND pref_name='{$conditions['search_prefecture']}'";
-    }
-
-     // フリーワードに基づく検索条件
-     if(!empty($_POST['search_word'])){
-         $conditions['search_word']=$_POST['search_word'];
-         $searchWord='%'.$conditions['search_word'].'%';
-         $sql.= " AND (name_sei like (:name_sei) )";
-    }
-
-    //  ページを移動しても検索条件を保持できるように
-     $_SESSION['conditions']=$conditions;
-}
-
-if(!empty($_SESSION['conditions'])){
-    $conditions=$_SESSION['conditions'];
-}
-
-if(!empty($searchWord)){
-    $stmt=$db->prepare($sql);
-    var_dump($sql);
-    var_dump($searchWord);
-    $stmt->bindValue(':name_sei','%uyama%',PDO::PARAM_STR);
-    // $stmt->bindParam(':name_mei',$searchWord,PDO::PARAM_STR);
-    // $stmt->bindParam(':email',$searchWord,PDO::PARAM_STR);
-    var_dump($sql);
-    var_dump($searchWord);
-    $stmt->execute();
-    $members=$stmt->fetchAll();
-}
-
-$stmt=$db->prepare($sql);
-$stmt->execute();
-$members=$stmt->fetchAll();
-
 $orderBy='id';
 $order='DESC';
+$sql="SELECT * FROM members WHERE deleted_at IS NULL";
+
+// ▼▲を押したときに検索条件を保持できるように
+if(!empty($_SESSION['search_id'])){
+    $sql.=" AND id= {$_SESSION['search_id']}";
+}
+if(!empty($_SESSION['search_male']) && empty($_SESSION['search_female'])){
+    $sql.=" AND gender= {$_SESSION['search_male']}";
+}
+if(!empty($_SESSION['search_female']) && empty($_SESSION['search_male'])){
+    $sql.=" AND gender= {$_SESSION['search_female']}";
+}
+if(!empty($_SESSION['search_prefecture'])){
+    $sql.=" AND pref_name= '{$_SESSION['search_prefecture']}'";
+}
+if(!empty($_SESSION['search_word'])){
+    $searchWord='%'.$_SESSION['search_word'].'%';
+    $sql.= " AND (name_sei like (:name_sei) OR name_mei like (:name_mei) OR email like (:email))";
+}
+
+
+// IDに基づく検索条件
+if(!empty($_POST['search_id'])){
+    $conditions['search_id']=$_POST['search_id'];
+    $sql.=" AND id= {$conditions['search_id']}";
+}
+
+// 性別に基づく検索条件
+if(!empty($_POST['search_male']) && empty($_POST['search_female'])){
+    $conditions['search_male']=$_POST['search_male'];
+    $sql.=" AND gender={$conditions['search_male']}";
+}
+elseif(empty($_POST['search_male']) && !empty($_POST['search_female'])){
+    $conditions['search_female']=$_POST['search_female'];
+    $sql.=" AND gender={$conditions['search_female']}";
+}
+elseif(!empty($_POST['search_male']) && !empty($_POST['search_female'])){
+    $conditions['search_male']=$_POST['search_male'];
+    $conditions['search_female']=$_POST['search_female'];
+} 
+
+// 都道府県に基づく検索条件
+if(!empty($_POST['search_prefecture'])){
+    $conditions['search_prefecture']=$_POST['search_prefecture'];
+    $sql.=" AND pref_name='{$conditions['search_prefecture']}'";
+}
+
+// フリーワードに基づく検索条件
+if(!empty($_POST['search_word'])){
+    $conditions['search_word']=$_POST['search_word'];
+    $searchWord='%'.$conditions['search_word'].'%';
+    $sql.= " AND (name_sei like (:name_sei) OR name_mei like (:name_mei) OR email like (:email))";
+}
 
 if(!empty($_POST['orderby'])&&!empty($_POST['order'])){
+    $_SESSION['orderby']=$_POST['orderby'];
+    $_SESSION['order']=$_POST['order'];
     $orderBy=$_POST['orderby'];
     $order=$_POST['order'];
 }
+if(!empty($_SESSION['orderby'])&&!empty($_SESSION['order'])){
+    $orderBy=$_SESSION['orderby'];
+    $order=$_SESSION['order'];
+}
 
-$sqlOrder=" ORDER BY $orderBy $order";
-$sql.=$sqlOrder;
-$stmt=$db->prepare($sql);
-$stmt->execute();
-$members=$stmt->fetchAll();
-
-
-$countSql="SELECT COUNT(*) FROM members WHERE deleted_at IS NULL ";
-$stmt=$db->prepare($countSql);
-$stmt->execute();
+$sql.=" ORDER BY $orderBy $order";
 
 $membersPerPage=10;
-$membersCount=$stmt->fetchColumn();
-$totalPages = ceil($membersCount / $membersPerPage);
 
 // 現在のページ番号を取得（デフォルトは1ページ目）
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -101,10 +109,22 @@ if ($page <= 0) {
 $offset = ($page - 1) * $membersPerPage; 
 
 $sql.=" LIMIT $membersPerPage OFFSET $offset";
-var_dump($sql);
+
 $stmt=$db->prepare($sql);
+if(!empty($_POST['search_word']) || !empty($_SESSION['search_word'])){
+    $stmt->bindValue(':name_sei',$searchWord,PDO::PARAM_STR);
+    $stmt->bindParam(':name_mei',$searchWord,PDO::PARAM_STR);
+    $stmt->bindParam(':email',$searchWord,PDO::PARAM_STR);
+}
 $stmt->execute();
 $members=$stmt->fetchAll();
+
+$result=str_replace(" LIMIT $membersPerPage OFFSET $offset","",$sql);
+$stmt = $db->prepare($result);
+$stmt->execute();
+$count = $stmt -> rowCount();
+
+$totalPages = ceil($count / $membersPerPage);
 
 
 // 登録日時を指定の形式に直す
@@ -112,6 +132,23 @@ foreach($members as $key=>$member){
     $dateFromDB=$member['created_at'];
     $datetime=new Datetime($dateFromDB);
     $members[$key]['created_at']=$datetime->format('Y/n/j');
+}
+
+
+if(!empty($_POST['search']) && empty($_POST['search_id'])){
+    unset($_SESSION['search_id']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_male'])){
+    unset($_SESSION['search_male']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_female'])){
+    unset($_SESSION['search_female']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_prefecture'])){
+    unset($_SESSION['search_prefecture']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_word'])){
+    unset($_SESSION['search_word']);
 }
 
 ?>
@@ -138,13 +175,13 @@ foreach($members as $key=>$member){
                     <table border="2" width="200">
                         <tr>
                             <th>ID</th>
-                            <td><input type="text"  name="serach_id" value="<?php if(!empty ($conditions['search_id'])){echo $conditions['search_id'];} ?>"></td>
+                            <td><input type="text"  name="search_id" value="<?php if(!empty ($conditions['search_id'])){echo $conditions['search_id'];}elseif(!empty ($_SESSION['search_id'])){echo $_SESSION['search_id'];} ?>"></td>
                         </tr>
                         <tr>
                             <th>性別</th>
                             <td>
-                                <input type="checkbox"  name="search_male"  value="1" <?php if(!empty($conditions['search_male'])){echo 'checked';}?>>男性
-                                <input type="checkbox"  name="search_female"  value="2" <?php if(!empty($conditions['search_female'])){echo 'checked';}?>>女性
+                                <input type="checkbox"  name="search_male"  value="1" <?php if(!empty($conditions['search_male'])&&$conditions['search_male']==='1'){echo 'checked';}elseif(!empty($_SESSION['search_male'])&&$_SESSION['search_male']==='1'){echo 'checked';}?>>男性
+                                <input type="checkbox"  name="search_female"  value="2" <?php if(!empty($conditions['search_female'])&&$conditions['search_female']==='2'){echo 'checked';}elseif(!empty($_SESSION['search_female'])&&$_SESSION['search_female']==='2'){echo 'checked';}?>>女性
                             </td>
                         </tr>
                         <?php 
@@ -157,7 +194,8 @@ foreach($members as $key=>$member){
                                     <option value=""></option>
                                     <?php 
                                     foreach($towns as $town){
-                                        if(!empty($error) && ($town===$conditions['search_prefecture'])){echo "<option value='{$conditions['search_prefecture']}' selected>{$town}</option>";}
+                                        if($town===$conditions['search_prefecture']){echo "<option value='{$conditions['search_prefecture']}' selected>{$town}</option>";}
+                                        elseif($town===$_SESSION['search_prefecture']){echo "<option value='{$_SESSION['search_prefecture']}' selected>{$town}</option>";}
                                         else{echo "<option value='{$town}'>{$town}</option>";}
                                     }?>
                                 </select>
@@ -165,7 +203,7 @@ foreach($members as $key=>$member){
                         </tr>
                         <tr>
                             <th>フリーワード</th>
-                            <td><input type="text"  name="search_word" value="<?php if(!empty($conditions['search_word'])){echo $conditions['search_word'];} ?>"></td>
+                            <td><input type="text"  name="search_word" value="<?php if(!empty($conditions['search_word'])){echo $conditions['search_word'];}elseif(!empty ($_SESSION['search_word'])){echo $_SESSION['search_word'];} ?>"></td>
                         </tr>
                     </table>
                     <input type="submit" name="search" class="search_btn" value="検索する">
@@ -176,12 +214,14 @@ foreach($members as $key=>$member){
                         <tr>
                             <th>
                                 ID 
-                                <?php if (($orderBy==='id' && $order==='ASC') || ($orderBy==='created_at' && $order==='ASC')):?>
-                                <input type="hidden" name="order" value="DESC">
-                                <button type="submit" name="orderby" class="switch_btn" value="id">▼</button>
-                                <?php else: ?>
-                                <input type="hidden" name="order" value="ASC">
-                                <button type="submit" name="orderby" class="switch_btn" value="id">▲</button>
+                                <?php if($count>=2):?>
+                                    <?php if (($orderBy==='id' && $order==='ASC') || ($orderBy==='created_at' && $order==='ASC')):?>
+                                    <input type="hidden" name="order" value="DESC">
+                                    <button type="submit" name="orderby" class="switch_btn" value="id">▼</button>
+                                    <?php else: ?>
+                                    <input type="hidden" name="order" value="ASC">
+                                    <button type="submit" name="orderby" class="switch_btn" value="id">▲</button>
+                                    <?php endif;?>
                                 <?php endif;?>
                             </th>
                             <th>氏名</th>
@@ -189,12 +229,16 @@ foreach($members as $key=>$member){
                             <th>住所</th>
                             <th>
                                 登録日時
-                                <?php if (($orderBy==='id' && $order==='ASC') || ($orderBy==='created_at' && $order==='ASC')):?>
-                                <input type="hidden" name="order" value="DESC">
-                                <button type="submit" name="orderby" class="switch_btn" value="created_at">▼</button>
-                                <?php else: ?>
-                                <input type="hidden" name="order" value="ASC">
-                                <button type="submit" name="orderby" class="switch_btn" value="created_at">▲</button>
+                                <?php if($count>=2):?>
+                                    <?php if (($orderBy==='id' && $order==='ASC') || ($orderBy==='created_at' && $order==='ASC')):?>
+                                    <input type="hidden" name="order" value="DESC">
+                                    <input type="hidden" name="search" value="">
+                                    <button type="submit" name="orderby" class="switch_btn" value="created_at">▼</button>
+                                    <?php else: ?>
+                                    <input type="hidden" name="order" value="ASC">
+                                    <input type="hidden" name="search" value="">
+                                    <button type="submit" name="orderby" class="switch_btn" value="created_at">▲</button>
+                                    <?php endif;?>
                                 <?php endif;?>
                             </th>
                         </tr>
@@ -222,6 +266,9 @@ foreach($members as $key=>$member){
                     <?php
                     $startPage=max(1,$page-1);
                     $endPage=min($totalPages,$page+1);
+                    if ($count <= 10) {
+                        $endPage = 1;
+                    }
                     for($i=$startPage;$i<=$endPage;$i++):
                     ?>
                         <?php if($i==$page):?>
@@ -232,7 +279,7 @@ foreach($members as $key=>$member){
                     <?php endfor; ?>
 
                     <!-- 次へのリンク -->
-                    <?php if ($page<$totalPages && count($members) === $membersPerPage): ?>
+                    <?php if ($page<$totalPages): ?>
                         <a href="?page=<?php echo $page + 1;?>&orderBy=<?php echo $orderBy;?>&order=<?php echo $order;?>">次へ</a>
                     <?php endif; ?>
                 </div>
