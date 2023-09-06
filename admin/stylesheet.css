@@ -13,6 +13,8 @@ main {
     color:#333;
     text-align: center;
     margin: 0px 300px;
+    margin-top: 20px;
+    flex: 1;
 }
 
 .error {
@@ -23,10 +25,6 @@ main {
     min-height: 100%;
 }
 
-main {
-    margin-top: 20px;
-    flex: 1;
-}
 
 header,footer{
     min-height: 65px;
@@ -106,7 +104,7 @@ header{
 
  table{
     width:100%;
-    margin-top: 8px;
+    margin-top: 20px;
  }
 
  th{
@@ -137,4 +135,14 @@ header{
  .current_page {
     background-color: rgb(24, 85, 155);
     color: white;  
+}
+
+.toRegist a {
+    text-decoration: none;
+    border:#dbe4f0 solid 2px;
+    background-color: #396092;
+    color:#dbe4f0;
+    margin: 15px 0px;
+    padding:8px 10px;
+    border-radius:10px;
 }

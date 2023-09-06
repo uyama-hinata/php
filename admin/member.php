@@ -9,21 +9,14 @@ if (empty($_SESSION['admin_name'])) {
     exit;
 }
 
-if(!empty($_POST['search']) && empty($_POST['search_id'])){
-    unset($_SESSION['search_id']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_male'])){
-    unset($_SESSION['search_male']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_female'])){
-    unset($_SESSION['search_female']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_prefecture'])){
-    unset($_SESSION['search_prefecture']);
-}
-if(!empty($_POST['search']) && empty($_POST['search_word'])){
-    unset($_SESSION['search_word']);
-}
+    unset($_SESSION['family-name']);
+    unset($_SESSION['first-name']);
+    unset($_SESSION['gender']);
+    unset($_SESSION['prefecture']);
+    unset($_SESSION['address']);
+    unset($_SESSION['password1']);
+    unset($_SESSION['password2']);
+    unset($_SESSION['email']);
 
 
 if(!empty($_POST['search_id'])){
@@ -182,6 +175,7 @@ foreach($members as $key=>$member){
             </header>
 
             <main>
+                <div class="toRegist"><a href="member_regist.php">会員登録</a></div>
                 <form  action="" method="post">
                     <table border="2" width="200">
                         <tr>
@@ -252,6 +246,7 @@ foreach($members as $key=>$member){
                                     <?php endif;?>
                                 <?php endif;?>
                             </th>
+                            <th>編集</th>
                         </tr>
 
                         <!-- 一覧表示と検索結果表示 --> 
@@ -262,6 +257,7 @@ foreach($members as $key=>$member){
                                 <td><?php if($member['gender']==1){echo "男性";}else{echo "女性";} ?></td>
                                 <td><?php echo htmlspecialchars($member['pref_name'],ENT_QUOTES, 'UTF-8'); ?><?php echo htmlspecialchars($member['address'],ENT_QUOTES, 'UTF-8'); ?></td>
                                 <td><?php echo $member['created_at'];?></td>
+                                <td><a href="member_edit.php?id=<?php echo(int)$member['id'];?>">編集</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
