@@ -154,8 +154,8 @@ header{
     margin: 15px 0px;
     padding:8px 10px;
     border-radius:10px;
-    
 }
+
 
 .btn_back a{
     
@@ -168,3 +168,16 @@ header{
     border-radius:10px;
 }
 
+.toRegist a{
+    text-decoration: none;
+    border:#396092 solid 2px;
+    color:#396092;
+    background-color: #dbe4f0;
+    padding:4px 10px;
+    border-radius:10px;
+    display: inline-block;
+}
+
+table a{
+    text-decoration: none;
+}

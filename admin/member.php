@@ -267,17 +267,19 @@ foreach($members as $key=>$member){
                                 <?php endif;?>
                             </th>
                             <th>編集</th>
+                            <th>詳細</th>
                         </tr>
 
                         <!-- 一覧表示と検索結果表示 --> 
                         <?php foreach ($members as $member): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($member['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                <td><?php echo htmlspecialchars($member['name_sei'], ENT_QUOTES, 'UTF-8'); ?><?php echo htmlspecialchars($member['name_mei'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><a href="member_detail.php?id=<?php echo(int)$member['id'];?>"><?php echo htmlspecialchars($member['name_sei'], ENT_QUOTES, 'UTF-8'); ?><?php echo htmlspecialchars($member['name_mei'], ENT_QUOTES, 'UTF-8'); ?></a></td>
                                 <td><?php if($member['gender']==1){echo "男性";}else{echo "女性";} ?></td>
                                 <td><?php echo htmlspecialchars($member['pref_name'],ENT_QUOTES, 'UTF-8'); ?><?php echo htmlspecialchars($member['address'],ENT_QUOTES, 'UTF-8'); ?></td>
                                 <td><?php echo $member['created_at'];?></td>
                                 <td><a href="member_edit.php?id=<?php echo(int)$member['id'];?>">編集</a></td>
+                                <td><a href="member_detail.php?id=<?php echo(int)$member['id'];?>">詳細</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>

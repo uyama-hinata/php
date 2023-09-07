@@ -73,7 +73,7 @@ if(!empty($_POST) ){
 <html>
     <head>
       <meta charset="utf-8">
-	  <title>確認（権利画面）</title>
+	  <title>確認（管理）</title>
 	  <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
