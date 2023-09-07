@@ -35,6 +35,21 @@ if(!empty($_POST['search_word'])){
     $_SESSION['search_word']=$_POST['search_word'];
 }
 
+if(!empty($_POST['search']) && empty($_POST['search_id'])){
+    unset($_SESSION['search_id']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_male'])){
+    unset($_SESSION['search_male']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_female'])){
+    unset($_SESSION['search_female']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_prefecture'])){
+    unset($_SESSION['search_prefecture']);
+}
+if(!empty($_POST['search']) && empty($_POST['search_word'])){
+    unset($_SESSION['search_word']);
+}
 
 $conditions = [];
 $orderBy='id';
@@ -104,6 +119,8 @@ if(!empty($_SESSION['orderby'])&&!empty($_SESSION['order'])){
     $order=$_SESSION['order'];
 }
 
+
+
 $sql.=" ORDER BY $orderBy $order";
 
 $membersPerPage=10;
@@ -154,6 +171,9 @@ foreach($members as $key=>$member){
     $datetime=new Datetime($dateFromDB);
     $members[$key]['created_at']=$datetime->format('Y/n/j');
 }
+
+
+
 
 ?>
 

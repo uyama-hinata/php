@@ -36,20 +36,22 @@ if(!empty($_POST) ){
         }
     }
     if(!empty($_SESSION['id'])){
+        $id=$_SESSION['id'];
         if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']){
-            $hashedPassword = password_hash($_POST['password1'], PASSWORD_DEFAULT);
+            if(!empty($_POST['password1'])){$hashedPassword = password_hash($_POST['password1'], PASSWORD_DEFAULT);}
             $stmt=$db->prepare("UPDATE members SET name_sei=?, name_mei=?,  gender=?, pref_name=?, address= ?, password=(CASE WHEN ? IS NOT NULL THEN ? ELSE password END) ,email=?, updated_at=NOW() WHERE id = ? ");
-            $stmt->bindValue(':id',$id,PDO::PARAM_INT);
-            $stmt->execute(array(
+            $data=[
                 $_POST['family-name'],
                 $_POST['first-name'],
                 $_POST['gender'],
                 $_POST['prefecture'],
                 $_POST['address'],
                 $hashedPassword,
+                $hashedPassword,
                 $_POST['email'],
-                $_SESSION['id'],
-            ));
+                $id,
+            ];
+            $stmt->execute($data);
         }
     }
     unset($_SESSION['token']);
@@ -81,32 +83,34 @@ if(!empty($_POST) ){
                     <div class="dislay-register">
 
                         <div class="confirm-item">
-                        <div class="confirm-label">ID</div>
+                        ID
+                        <?php if(empty($_SESSION['id'])){echo "登録後に自動採番";}elseif(!empty($_SESSION['id'])){echo $_SESSION['id'];}?>
+                        </div> 
 
                         <div class="confirm-item">
-                        <div class="confirm-label">氏名</div>
+                        氏名
                         <?php echo $_SESSION['family-name'];?>
                         <?php echo $_SESSION['first-name'];?>
                         </div>
 
                         <div class="confirm-item">
-                        <div class="confirm-label">性別</div>
+                        性別
                         <?php if($_SESSION['gender']==="1"){echo "男性";}elseif($_SESSION['gender']==="2"){echo "女性";};?>
                         </div>
 
                         <div class="confirm-item">
-                        <div class="confirm-label">住所</div>
+                        住所
                         <?php echo $_SESSION['prefecture'];?>
                         <?php echo $_SESSION['address'];?>
                         </div>
 
                         <div class="confirm-item">
-                        <div class="confirm-label">パスワード</div>
+                        パスワード
                         セキュリティのため非表示
                         </div>
 
                         <div class="confirm-item">
-                        <div class="confirm-label">メールアドレス</div>
+                        メールアドレス
                         <?php echo $_SESSION['email'];?>
                         </div>
                     </div>
@@ -123,14 +127,14 @@ if(!empty($_POST) ){
                     <input type="hidden" name="token" value="<?php echo $token; ?>">
                     
 
-                    <input type="submit" class="btn next" value="登録完了">
+                    <input type="submit" class="btn_next" value="登録完了">
                     
                 </form>
                 <?php if(empty($_SESSION['id'])):?>
-                <a href="member_regist.php"  class="btn back">前へ戻る</a>
+                <div class="btn_back"><a href="member_regist.php"  >前へ戻る</a></div>
                 <?php endif;?>
                 <?php if(!empty($_SESSION['id'])):?>
-                <a href="member_edit.php?id=<?php echo(int)$_SESSION['id'];?>"  class="btn back">前へ戻る</a>
+                <div  class="btn_back"><a href="member_edit.php?id=<?php echo(int)$_SESSION['id'];?>" >前へ戻る</a></div>
                 <?php endif;?>
             </main>
         </div>
