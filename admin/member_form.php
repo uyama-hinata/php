@@ -109,15 +109,15 @@ if(!empty($_POST)){
 		$error['email-duplicate']= 'すでに登録済みのメールアドレスです';
 	}
     elseif(!empty($_GET['id']) && !empty($_POST['email'])){
-        $email=$_POST['email'];
+        $email=$members['email'];
+        $newemail=$_POST['email'];
         
         // 編集しているメールアドレスを除外
         $index=array_search($email, $allEmails);
         if($index!==false){
             unset($allEmails[$index]);
         }
-
-        if (in_array($email, $allEmails)) {
+        if(in_array($newemail, $allEmails)) {
             $error['email-duplicate'] = 'すでに使われているメールアドレスです';
         }
     }

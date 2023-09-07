@@ -126,8 +126,8 @@ if(!empty($_POST) ){
                     <input type="hidden" name="email" value="<?php echo $_SESSION['email'];?>">
                     <input type="hidden" name="token" value="<?php echo $token; ?>">
                     
-
-                    <input type="submit" class="btn_next" value="登録完了">
+                    
+                    <input type="submit" class="btn_next" value=<?php if(empty($_SESSION['id'])){echo "登録完了";}elseif(!empty($_SESSION['id'])){echo "編集完了";}?>>
                     
                 </form>
                 <?php if(empty($_SESSION['id'])):?>
