@@ -47,12 +47,12 @@ if(!empty($_POST)){
     }
 
     // 都道府県
+    $towns=array('北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県', '石川県', '福井県', '山梨県','長野県','岐阜県','静岡県','愛知県', '三重県','滋賀県','京都府','大阪府','兵庫県','奈良県', '和歌山県','鳥取県','島根県','岡山県', '広島県','山口県', '徳島県','香川県', '愛媛県','高知県', '福岡県','佐賀県', '長崎県', '熊本県', '大分県', '宮崎県','鹿児島県','沖縄県');
+	
     if ($_POST['prefecture']===""){
 		$error['prefecture-blank']='都道府県を選択してください';
 	}
-    $towns=array('北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県', '石川県', '福井県', '山梨県','長野県','岐阜県','静岡県','愛知県', '三重県','滋賀県','京都府','大阪府','兵庫県','奈良県', '和歌山県','鳥取県','島根県','岡山県', '広島県','山口県', '徳島県','香川県', '愛媛県','高知県', '福岡県','佐賀県', '長崎県', '熊本県', '大分県', '宮崎県','鹿児島県','沖縄県');
-	
-    if(!in_array($_POST['prefecture'],$towns)){
+    elseif(!in_array($_POST['prefecture'],$towns)){
         $error['prefecture-correct']='住所は正しく選択してください';
     }
 
@@ -140,8 +140,6 @@ if(!empty($_POST)){
     }
 }
 
-var_dump($_SESSION['gender']);
-var_dump($_SESSION['prefecture']);
 ?>
 
 <!DOCTYPE html>
@@ -190,8 +188,8 @@ var_dump($_SESSION['prefecture']);
                     </div>
 
                     <div class="form-item">性別
-                        <label><input type="radio" name="gender" value="1" <?php if(isset($_SESSION['gender']) && $_SESSION['gender']==="1"){echo 'checked';}elseif(isset($members['gender']) && $members['gender']===1){echo 'checked';}?>>男性</label>
-                        <label><input type="radio" name="gender" value="2" <?php if(isset($_SESSION['gender']) && $_SESSION['gender']==="2"){echo 'checked';}elseif(isset($members['gender']) && $members['gender']===2){echo 'checked';}?>>女性</label>
+                        <label><input type="radio" name="gender" value="1" <?php if(isset($_SESSION['gender']) && $_SESSION['gender']=="1"){echo 'checked';}elseif(empty($_SESSION['gender']) && (isset($members['gender']) && $members['gender']=="1")){echo 'checked';}?>>男性</label>
+                        <label><input type="radio" name="gender" value="2" <?php if(isset($_SESSION['gender']) && $_SESSION['gender']=="2"){echo 'checked';}elseif(empty($_SESSION['gender']) && (isset($members['gender']) && $members['gender']=="2")){echo 'checked';}?>>女性</label>
 
                         <!-- 性別エラー文表示 -->
                         <div class="error">
@@ -213,7 +211,7 @@ var_dump($_SESSION['prefecture']);
                             <?php 
                             foreach($towns as $town){
                                 if($town===$_SESSION['prefecture']){echo "<option value='{$_SESSION['prefecture']}' selected>{$town}</option>";}
-                                elseif($town===$members['pref_name']){echo "<option value='{$members['pref_name']}' selected>{$town}</option>";}
+                                elseif(empty($_SESSION['prefecture']) && $town===$members['pref_name']){echo "<option value='{$members['pref_name']}' selected>{$town}</option>";}
                                 else{echo "<option value='{$town}'>{$town}</option>";}
                             }
                             

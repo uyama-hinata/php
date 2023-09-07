@@ -146,3 +146,25 @@ header{
     padding:8px 10px;
     border-radius:10px;
 }
+
+.btn_next{
+    border:#396092 solid 2px;
+    color:#396092;
+    background-color: #dbe4f0;
+    margin: 15px 0px;
+    padding:8px 10px;
+    border-radius:10px;
+    
+}
+
+.btn_back a{
+    
+    text-decoration: none;
+    border:#dbe4f0 solid 2px;
+    background-color: #396092;
+    color:#dbe4f0;
+    margin: 15px 0px;
+    padding:7px 8px;
+    border-radius:10px;
+}
+
